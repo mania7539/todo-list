@@ -4,12 +4,35 @@ class Todo extends Component {
     constructor() {
         super();
         this.state = {
+            nextTodo: { name: '', description: '' },
             todoList: [
                 { name: 'Groceries', description: 'pick up groceries' },
                 { name: 'Laundry', description: 'drop off laundry at dry cleaner' }
             ]
         }
     }
+
+    updateTodo(field, event) {
+        // console.log("UPDATE TODO: " + field + " == " + event.target.value);
+        let nextTodo = Object.assign({}, this.state.nextTodo);
+        nextTodo[field] = event.target.value;
+        this.setState({
+            nextTodo: nextTodo
+        });
+        
+    }
+    
+    addTodo(event) {
+        console.log("ADD TODO: " + JSON.stringify(this.state.nextTodo)); // use JSON.stringify to make the json into formatted string
+        let todoList = Object.assign([], this.state.todoList);
+        todoList.push(this.state.nextTodo);
+        this.setState({
+            todoList: todoList,
+            nextTodo: { name: '', description: '' }
+        });
+
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -23,10 +46,10 @@ class Todo extends Component {
                                 })
                             }
                         </ol>
-        
-                        <input className="form-control" type="text" placeholder="Name" /><br />
-                        <input className="form-control" type="text" placeholder="Description" /><br />
-                        <button>Add Todo</button>    
+
+                        <input value={this.state.nextTodo.name} onChange={this.updateTodo.bind(this, "name")} className="form-control" type="text" placeholder="Name" /><br />
+                        <input value={this.state.nextTodo.description} onChange={this.updateTodo.bind(this, "description")} className="form-control" type="text" placeholder="Description" /><br />
+                        <button onClick={this.addTodo.bind(this)}>Add Todo</button>
                     </div>
                 </div>
 
