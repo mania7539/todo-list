@@ -12,10 +12,14 @@ class Todo extends Component {
         }
     }
 
+    makeTheFirstLetterUppercase(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     updateTodo(field, event) {
         // console.log("UPDATE TODO: " + field + " == " + event.target.value);
         let nextTodo = Object.assign({}, this.state.nextTodo);
-        nextTodo[field] = event.target.value;
+        nextTodo[field] = this.makeTheFirstLetterUppercase(event.target.value);
         this.setState({
             nextTodo: nextTodo
         });
@@ -28,7 +32,7 @@ class Todo extends Component {
         todoList.push(this.state.nextTodo);
         this.setState({
             todoList: todoList,
-            nextTodo: { name: '', description: '' }
+            nextTodo: { name: '', description: '' } // use this line to clear the text which was typed in the input fields
         });
 
     }
@@ -46,7 +50,7 @@ class Todo extends Component {
                                 })
                             }
                         </ol>
-
+                        
                         <input value={this.state.nextTodo.name} onChange={this.updateTodo.bind(this, "name")} className="form-control" type="text" placeholder="Name" /><br />
                         <input value={this.state.nextTodo.description} onChange={this.updateTodo.bind(this, "description")} className="form-control" type="text" placeholder="Description" /><br />
                         <button onClick={this.addTodo.bind(this)}>Add Todo</button>
