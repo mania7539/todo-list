@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { todoReducer } from "../reducer";
+import { todoReducer } from "../reducer"; // get todoReducer from the json object
 
 let stores = null;
 
@@ -20,7 +20,9 @@ export default {
         return stores;
     },
 
+    /* Not necessary at the first time */
     getCurrentStore() {
         return stores;
     }
 }
+
