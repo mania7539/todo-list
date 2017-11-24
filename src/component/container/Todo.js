@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import action from "../../action";
 
 class Todo extends Component {
     constructor() {
@@ -25,7 +26,7 @@ class Todo extends Component {
     }
 
     addTodo(event) {
-        // console.log("ADD TODO: " + JSON.stringify(this.state.nextTodo)); // use JSON.stringify to make the json into formatted string
+        console.log("ADD TODO: " + JSON.stringify(this.state.nextTodo)); // use JSON.stringify to make the json into formatted string
 
         // let todoList = Object.assign([], this.state.todoList);
         // todoList.push(this.state.nextTodo);
@@ -33,7 +34,8 @@ class Todo extends Component {
         //     todoList: todoList,
         //     nextTodo: { name: '', description: '' } // use this line to clear the text which was typed in the input fields
         // });
-
+        this.props.createTodoItem(this.state.nextTodo);
+        
     }
 
     render() {
@@ -74,7 +76,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
     return {
-
+        createTodoItem: (todo) => dispatch(action.createTodoItem(todo))
     }
 }
 
